@@ -3,14 +3,11 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-#pragma once
+#ifndef _LEDSTRIPENCODER_H
+#define _LEDSTRIPENCODER_H
 
 #include <stdint.h>
 #include "driver/rmt_encoder.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /**
  * @brief Bit timing of the LED control IC's one-wire protocol
@@ -23,13 +20,6 @@ typedef struct {
     uint32_t reset_us; /*!< Low time that latches the data, in us */
 } led_strip_timing_t;
 
-/**
- * @brief WS2811 external control IC, 800 kHz (high-speed) mode.
- *        Reset is 280us to cover newer WS2811 revisions (older ones need only 50us).
- */
-#define LED_STRIP_TIMING_WS2811 ((led_strip_timing_t) { \
-    .t0h_ns = 250, .t0l_ns = 1000, .t1h_ns = 600, .t1l_ns = 650, .reset_us = 280, \
-})
 
 /**
  * @brief FW1903 external control IC, 800 kHz (1.25us bit period).
@@ -39,12 +29,6 @@ typedef struct {
     .t0h_ns = 360, .t0l_ns = 890, .t1h_ns = 720, .t1l_ns = 530, .reset_us = 250, \
 })
 
-/**
- * @brief WS2812/WS2812B integrated 5050 LED
- */
-#define LED_STRIP_TIMING_WS2812 ((led_strip_timing_t) { \
-    .t0h_ns = 300, .t0l_ns = 900, .t1h_ns = 900, .t1l_ns = 300, .reset_us = 50, \
-})
 
 /**
  * @brief Type of led strip encoder configuration
@@ -66,6 +50,4 @@ typedef struct {
  */
 esp_err_t rmt_new_led_strip_encoder(const led_strip_encoder_config_t *config, rmt_encoder_handle_t *ret_encoder);
 
-#ifdef __cplusplus
-}
-#endif
+#endif // _LEDSTRIPENCODER_H
