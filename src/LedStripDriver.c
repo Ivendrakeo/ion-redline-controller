@@ -1,6 +1,7 @@
 // ESP32 includes
 #include "esp_log.h"
 #include "driver/rmt_tx.h"
+#include "soc/soc_caps.h"
 
 #include "freertos/FreeRTOS.h"
 
@@ -82,7 +83,7 @@ void init_led_strip_driver(void)
     rmt_tx_channel_config_t tx_chan_config = {
         .clk_src = RMT_CLK_SRC_DEFAULT, // select source clock
         .gpio_num = RMT_LED_STRIP_GPIO_NUM,
-        .mem_block_symbols = 64, // increase the block size can make the LED less flickering
+        .mem_block_symbols = SOC_RMT_MEM_WORDS_PER_CHANNEL, // one block (48 on C6); 64 would steal the block TX channel 1 (strobe) needs
         .resolution_hz = RMT_LED_STRIP_RESOLUTION_HZ,
         .trans_queue_depth = 4, // set the number of transactions that can be pending in the background
     };
