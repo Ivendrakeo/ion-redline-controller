@@ -82,7 +82,7 @@ void init_led_strip_driver(void)
     //rmt_channel_handle_t led_chan = NULL;
     rmt_tx_channel_config_t tx_chan_config = {
         .clk_src = RMT_CLK_SRC_DEFAULT, // select source clock
-        .gpio_num = RMT_LED_STRIP_GPIO_NUM,
+        .gpio_num = UNDERGLOW_RMT_GPIO,
         .mem_block_symbols = SOC_RMT_MEM_WORDS_PER_CHANNEL, // one block (48 on C6); 64 would steal the block TX channel 1 (strobe) needs
         .resolution_hz = RMT_LED_STRIP_RESOLUTION_HZ,
         .trans_queue_depth = 4, // set the number of transactions that can be pending in the background

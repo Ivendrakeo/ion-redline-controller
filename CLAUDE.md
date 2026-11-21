@@ -38,5 +38,5 @@ App code lives in `src/` and headers in `include/`. There is **no `main/` direct
 - **`LedStripDriver.c/.h`** owns the RMT channel, the encoder handle, and a static pixel buffer in file-scope statics. `init_led_strip_driver()` creates the TX channel (10 MHz resolution), installs the encoder, and enables the channel. The pattern functions (`update_rainbow_chase`, `led_strip_solid`) fill the buffer, then call `rmt_transmit` and `rmt_tx_wait_all_done`. `update_rainbow_chase` blocks for 3 × `EXAMPLE_CHASE_SPEED_MS` per call. Strip parameters are `#define`s in `LedStripDriver.h`:
   - The buffer is a flat `uint8_t` array of `EXAMPLE_LED_NUMBERS × 3` bytes. `EXAMPLE_LED_NUMBERS` counts control ICs (addressable pixels), not physical LEDs: on 12 V strips one IC drives about 3 LEDs.
   - `LED_STRIP_R/G/B_OFFSET` set the color byte order on the wire, which depends on how the strip vendor wired the LEDs. If colors come out wrong, swap these offsets; don't change the timing.
-- **`System.c/.h`** handles general GPIO setup (`init_gpio` configures `SYSTEM_GPIO_OUTPUT`).
+- **`System.c/.h`** handles general GPIO setup (`init_gpio` configures `UNDERGLOW_SW_GPIO`).
 - **`main.c`** contains `app_main`, which calls the module `init_*` functions and then loops over a pattern function while pulsing GPIO 11.

@@ -1,21 +1,36 @@
 #include "System.h"
 #include "HwDefs.h"
 
+
 void init_gpio(void)
 {
-    //zero-initialize the config structure.
+    //setup config structure.
     gpio_config_t io_conf = {};
-    //disable interrupt
     io_conf.intr_type = GPIO_INTR_DISABLE;
-    //set as output mode
     io_conf.mode = GPIO_MODE_OUTPUT;
-    //bit mask of the pins that you want to set,e.g.GPIO18/19
-    io_conf.pin_bit_mask = (1ULL << SYSTEM_GPIO_OUTPUT);
-    //enable pull-down mode
     io_conf.pull_down_en = GPIO_PULLDOWN_ENABLE;
-    //disable pull-up mode
     io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-    //configure GPIO with the given settings
+    
+    // GPO pins
+    io_conf.pin_bit_mask = (1ULL << UNDERGLOW_EN_GPIO) || (1ULL << STROBE_EN_GPIO) || 
+                           (1ULL << FOG_EN_GPIO);
     gpio_config(&io_conf);
 
+    // GPI (pulldown) pins
+    io_conf.mode = GPIO_MODE_INPUT;
+    io_conf.pin_bit_mask = (1ULL << UNDERGLOW_SW_GPIO) || (1ULL << STROBE_SW_GPIO) || 
+                           (1ULL << ROCKER_SW_DN_GPIO) || (1ULL << ROCKER_SW_UP_GPIO) ;
+    gpio_config(&io_conf);
+
+    // GPI (pullup) pins
+    io_conf.mode = GPIO_MODE_INPUT;
+    io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+    io_conf.pull_up_en = GPIO_PULLUP_ENABLE;
+    io_conf.pin_bit_mask = (1ULL << FOG_SW_GPIO);
+    gpio_config(&io_conf);
+
+    // set initial GPO levels
+    gpio_set_level(UNDERGLOW_EN_GPIO, 0);
+    gpio_set_level(STROBE_EN_GPIO, 0);
+    gpio_set_level(FOG_EN_GPIO, 0);
 }

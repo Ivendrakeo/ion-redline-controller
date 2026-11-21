@@ -45,7 +45,7 @@ void init_strobe(void)
     ESP_LOGI(TAG, "Create strobe RMT TX channel");
     rmt_tx_channel_config_t tx_chan_config = {
         .clk_src = RMT_CLK_SRC_DEFAULT,
-        .gpio_num = STROBE_PULSE_GPIO_NUM,
+        .gpio_num = STROBE_RMT_GPIO,
         .mem_block_symbols = SOC_RMT_MEM_WORDS_PER_CHANNEL, // one block; frame is only 9 symbols
         .resolution_hz = STROBE_RMT_RESOLUTION_HZ,
         .trans_queue_depth = 2,

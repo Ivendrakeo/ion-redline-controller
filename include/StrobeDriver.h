@@ -24,7 +24,7 @@ typedef union {
 
 
 /*
-Pulse train protocol (output on STROBE_PULSE_GPIO_NUM, see HwDefs.h)
+Pulse train protocol (output on STROBE_RMT_GPIO, see HwDefs.h)
 
 Each strobe_set() call sends one frame of STROBE_PULSE_COUNT high-going pulses at
 STROBE_PULSE_FREQ_HZ, then holds the line low for STROBE_FRAME_GAP_US.

@@ -22,13 +22,13 @@ Connection :
                               --- 5V
                                |
                                +
-RMT_LED_STRIP_GPIO_NUM +------ +---|>| (WS2812 LED strip)
+UNDERGLOW_RMT_GPIO     +------ +---|>| (WS2812 LED strip)
                         DI     +
                                |
                               --- GND
 ```
 
-The GPIO number used in this example can be changed according to your board, by the macro `RMT_LED_STRIP_GPIO_NUM` defined in the [source file](main/led_strip_example_main.c). The number of LEDs can be changed as well by `EXAMPLE_LED_NUMBERS`.
+The GPIO number used in this example can be changed according to your board, by the macro `UNDERGLOW_RMT_GPIO` defined in the [source file](main/led_strip_example_main.c). The number of LEDs can be changed as well by `EXAMPLE_LED_NUMBERS`.
 
 ### Build and Flash
 

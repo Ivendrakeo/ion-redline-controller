@@ -35,6 +35,6 @@ void app_main(void)
         // test pattern: walk one strobe on at a time
         StrobeState strobes = { .allStrobes = (uint8_t)(0x10 << (cnt % 4)) };
         strobe_set(strobes);
-        gpio_set_level(SYSTEM_GPIO_OUTPUT, (cnt % 10) ? 0 : 1);
+        gpio_set_level(UNDERGLOW_SW_GPIO, (cnt % 10) ? 0 : 1);
     }
 }
